@@ -10,6 +10,7 @@ import json
 from base64 import b64decode, b64encode
 
 # Set up environment variables necessary
+# 环境变量
 curdir = os.path.dirname(__file__)
 sys.path.append(curdir)
 sys.path.append(os.path.join(curdir, 'packages'))
@@ -33,9 +34,11 @@ def handler(request):
 
     os.environ['GG_STORAGE_URI'] = event['storageBackend']
     thunks = event['thunks']
+    # thunk 从 event 获取
     timelog = event.get('timelog')
 
-    # Write thunks to disk
+    # Write thunks to disk 
+    # 将 thunks 写入硬盘中
     for thunk_item in thunks:
         thunk_data = b64decode(thunk_item['data'])
         with open(GGPaths.blob_path(thunk_item['hash']), "wb") as fout:

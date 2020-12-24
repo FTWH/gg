@@ -42,9 +42,11 @@ def handler(request):
     for thunk_item in thunks:
         thunk_data = b64decode(thunk_item['data'])
         with open(GGPaths.blob_path(thunk_item['hash']), "wb") as fout:
+            # 写入 thunk 数据
             fout.write(thunk_data)
 
     # Move executables from Lambda package to .gg directory
+    # 移动GG可执行文件到.gg目录下
     executables_dir = os.path.join(curdir, 'executables')
     if os.path.exists(executables_dir):
         for exe in os.listdir(executables_dir):
@@ -59,6 +61,7 @@ def handler(request):
     os.system("rm -rf /tmp/thunk-execute.*")
 
     # Execute the thunk, and upload the result
+    # gg-execute-static 是 c++编译好的可执行文件 需要找到参数
     command = ["gg-execute-static",
                "--get-dependencies",
                "--put-output",

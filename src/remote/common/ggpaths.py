@@ -29,6 +29,7 @@ class GGPaths:
 class GGCache:
     @classmethod
     def check(cls, thunk_hash, output_tag=None):
+    # 这个方法是用来检查
         key = thunk_hash
         if output_tag:
             key += ("#%s" % output_tag)

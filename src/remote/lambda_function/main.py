@@ -28,8 +28,10 @@ def is_hash_for_thunk(hash):
     return len(hash) > 0 and hash[0] == 'T'
 
 def handler(event, context):
+    print("@@@ Start the handler! @@@")
     os.environ['GG_STORAGE_URI'] = event['storageBackend']
     thunks = event['thunks']
+    print(f"@@@ Print thunks :{thunks} @@@")
     timelog = event.get('timelog')
 
     # Remove old thunk-execute directories
